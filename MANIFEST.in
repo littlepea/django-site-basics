@@ -1,5 +1,4 @@
 include AUTHORS
 include LICENSE
 include README.rst
-recursive-include favicon/static *
-recursive-include favicon/templates *
+recursive-include site_basics/templates *
