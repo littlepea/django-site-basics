@@ -33,6 +33,7 @@ setup(
         'Operating System :: OS Independent',
     ],
     install_requires = [
+        "Django<1.5"
         "django-favicon",
         "django-robots-txt",
     ],
