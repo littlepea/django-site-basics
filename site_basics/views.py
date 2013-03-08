@@ -10,14 +10,18 @@ def page_404(request):
     """
     Handler for 404 error page
     """
-    return render_to_response(conf.ERROR_404_PAGE_TEMPLATE, _get_content(request))
+    response = render_to_response(conf.ERROR_404_PAGE_TEMPLATE, _get_content(request))
+    response.status_code = 404
+    return response
 
 
 def page_500(request):
     """
     Handler for 500 error page
     """
-    return render_to_response(conf.ERROR_500_PAGE_TEMPLATE, _get_content(request))
+    response = render_to_response(conf.ERROR_500_PAGE_TEMPLATE, _get_content(request))
+    response.status_code = 500
+    return response
 
 
 def _get_content(request):
