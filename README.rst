@@ -1,7 +1,7 @@
 django-site-basics
 ========================
 
-A reusable app to add favicon.ico and robots.txt handling for your site.
+A reusable app to add favicon.ico, robots.txt and 404/500 error pages handling for your site.
 
 Installation
 ------------------------------------
@@ -17,7 +17,10 @@ Add "favicon" to your INSTALLED_APPS in settings.py::
           'site_basics',
       )
 
-Add site_basics URL patterns to urls.py::
+Add site_basics URL patterns and handlers (if you want to  use them) to urls.py::
+
+      handler404 = 'site_basics.views.page_404'
+      handler500 = 'site_basics.views.page_500'
 
       urlpatterns = patterns('',
           ...
@@ -27,16 +30,152 @@ Add site_basics URL patterns to urls.py::
 Usage
 ------------------------------------
 
+Favicon
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Put favicon.ico into your STATIC_ROOT. and you good to go, /favicon.ico will automatically redirect to /static/favicon.ico if your STATIC_URL = '/static/'.
 
 Otherwise you can set a custom path to your favicon using FAVICON_PATH setting. For example::
 
      FAVICON_PATH = STATIC_URL + 'images/favicon.png'
 
-robots.txt will be working out of the box but if you need to customize it put custom robots.txt file into your templates directory.
+Robots.txt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+robots.txt will be working out-of-the-box but if you need to customize it put custom robots.txt file into your templates directory.
 If you need to change template location use ROBOTS_TEMPLATE setting (robots.txt by default). Example::
 
     ROBOTS_TEMPLATE = 'myfolder/robots.txt'
+
+Error pages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error pages work out-of-the-box providing you fancy themes from Annanta_ and Robotik_.
+
+.. image:: http://www.designersdigest.co/wp-content/uploads/2010/03/404-Error-Template.jpg
+
+.. image:: http://mogoolab.com/wp-content/uploads/2011/10/robotik_1-450x260.png
+
+In development you can test these views by opening /test_page_404/ and /test_page_500/.
+
+Annanta is default but you can switch to Robotik using setting::
+
+    ERROR_PAGE_THEME = 'robotik' # default is 'annanta'
+
+You can also set a color::
+
+    ERROR_PAGE_THEME_COLOR = 'blue'
+
+Available colors:
+
+* blue
+* green
+* gray (Robotik only)
+* grey (Annanta only)
+* red (Annanta only)
+* brown (Annanta only)
+
+And if you're using Django CMS you can show links to your root pages by setting::
+
+    ERROR_PAGE_CMS_LINKS = True
+
+More configuration options below...
+
+Configuration
+------------------------------------
+
+ROBOTS_TEMPLATE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sets a template for robots.txt handler ('robots.txt' by default). Example::
+
+    ROBOTS_TEMPLATE = 'myforlder/myrobotstemplate.txt'
+
+ERROR_PAGE_THEME
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sets a theme for error pages ('annanta' or 'robotik', 'annanta' by default). Example::
+
+    ERROR_PAGE_THEME = 'robotik'
+
+ERROR_PAGE_THEME_COLOR
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sets a color for error pages theme ('blue' by default). Example::
+
+    ERROR_PAGE_THEME_COLOR = 'green'
+
+ERROR_404_PAGE_TEMPLATE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+404 template ('%s/404.html' % ERROR_PAGE_THEME by default). Example::
+
+    ERROR_404_PAGE_TEMPLATE = 'myforlder/404.html'
+
+ERROR_500_PAGE_TEMPLATE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+500 template ('%s/500.html' % ERROR_PAGE_THEME by default). Example::
+
+    ERROR_404_PAGE_TEMPLATE = 'myforlder/500.html'
+
+ERROR_PAGE_LOGO_URL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set it if you want to display your logo on the error pages (None by default). Example::
+
+    ERROR_PAGE_LOGO_URL = '%simages/logo.png' % settings.STATIC_URL
+
+ERROR_PAGE_CMS_LINKS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Allows you to show your root menu links on the error pages if you're using Django CMS (False by default). Example::
+
+    ERROR_PAGE_CMS_LINKS = True
+
+ERROR_PAGE_NAV_LINKS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Allows you to show your root menu links on the error pages if you're using Django CMS. Format is a tuple of tuples. Example::
+
+    ERROR_PAGE_NAV_LINKS = (
+        ('/', ugettext('Home')),
+    ))
+
+ERROR_PAGE_SOCIAL_LINKS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Allows you to show your social media links on the error pages. Format is a tuple of tuples (empty by default).
+
+Allowed values (because  of the icons preloaded) are anything from the GoSocial_ icons pack.
+
+Example::
+
+    ERROR_PAGE_SOCIAL_LINKS = (
+        ('twitter', 'http://twitter.com/YOURUSERNAME'),
+        ('facebook', 'http://www.facebook.com/pages/YOURUSERNAME/YOURUSERID'),
+        ('last.fm', 'http://www.last.fm/user/YOURUSERNAME'),
+        ('flickr', 'http://www.flickr.com/photos/YOURUSERNAME'),
+        ('vimeo', 'http://vimeo.com/YOURUSERID'),
+        ('rss', '/rss/'),
+    )
+
+
+ERROR_PAGE_SEARCH_ACTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Allows you to setup a search form on your error pages (None by default).
+
+Additional settings:
+
+* ERROR_PAGE_SEARCH_METHOD ('GET' by default)
+* ERROR_PAGE_SEARCH_PARAM ('q' by default)
+
+Example::
+
+    ERROR_PAGE_SEARCH_ACTION = '/search/'
+    ERROR_PAGE_SEARCH_METHOD = 'POST'
+    ERROR_PAGE_SEARCH_PARAM = 'query'
 
 Running the Tests
 ------------------------------------
@@ -52,7 +191,8 @@ or::
 TODO
 ------------------------------------
 
-* 404 and 500 pages
+* Add more templates
+* Add locales and translations
 * Google Analytics
 * Sitemaps support
 
@@ -62,7 +202,13 @@ Credits
 * Developed and maintained under supervision of `Evgeny Demchenko`_
 * Uses django-favicon_ for favicon.ico handling
 * Uses django-robots-txt_ for robots.txt handling
+* Uses Robotik_ 404 error page template
+* Uses Annanta_ 404 error page template
+* Uses GoSocial_ icons pack
 
 .. _Evgeny Demchenko: https://github.com/littlepea
 .. _django-favicon: https://github.com/littlepea/django-favicon
 .. _django-robots-txt: https://github.com/nkuttler/django-robots-txt
+.. _Annanta: http://www.designersdigest.co/archive/404-error-template/
+.. _Robotik: http://mogoolab.com/portfolio/free-404-error-page-html-template/
+.. _GoSocial: https://www.gosquared.com/blog/gosocial-a-free-social-media-icon-pack

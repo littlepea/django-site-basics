@@ -1,0 +1,8 @@
+{% extends "robotik/404.html" %}
+{% load i18n %}
+
+{% block head_title %}500 - {% trans "Server error" %} - {{ site.name }}{% endblock%}
+
+{% block error_number %}<div class="errorNumber" style="background: none; text-indent: 0; font-size: 200px; top: 30px; text-shadow: 6px 6px #999;">500</div>{% endblock%}
+
+{% block error_message %}{% trans "Oops... There was an error. Our stuff is working on it! Please, come back later or..." %}{% endblock%}

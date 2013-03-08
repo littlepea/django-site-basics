@@ -1,0 +1,40 @@
+/** 
+ *
+ * Robotik HTML Error Pages v 1.1
+ * Developed by MogooLab - www.mogoolab.com
+ *
+ **/
+
+/******************************************************************************/
+
+/* page Wrapper */
+.blue .wrapper {
+	background: url("../images/container_background.png") repeat-x scroll left top transparent;
+}
+
+/* content wrapper */
+.blue .mainWrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 830px;	
+}
+
+/* main holders */
+/* left holder - Logo, 404 Error */
+.blue .leftHolder {
+    border-right: 1px solid #0f6b99;
+}
+
+/* try to */
+
+.blue .tryToMessage {
+    color: #fff;
+}
+
+
+.blue .tryToMessage ul li a {
+	color:#dbe4e8;
+}
+.blue .tryToMessage ul li a:hover {
+	color:#ebf3f6;
+}

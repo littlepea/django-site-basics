@@ -1,0 +1,32 @@
+/** 
+ *
+ * Robotik HTML Error Pages v 1.1
+ * Developed by MogooLab - www.mogoolab.com
+ *
+ **/
+
+/******************************************************************************/
+
+body.square {
+	background:url("images/background_square.png") top left !important;
+}
+
+body.hash {
+	background:url("images/background_hash.png") top left !important;
+}
+
+body.rhash {
+	background:url("images/background_rhash.png") top left !important;
+}
+
+body.dline {
+	background:url("images/background_dline.png") top left !important;
+}
+
+body.line {
+	background:url("images/background_line.png") top left !important;
+}
+
+body.vline {
+	background:url("images/background_vline.png") top left !important;
+}

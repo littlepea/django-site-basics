@@ -1,0 +1,18 @@
+{% extends "annanta/404.html" %}
+{% load i18n %}
+
+{% block head_title %}500 - {% trans "Server error" %} - {{ site.name }}{% endblock%}
+
+{% block error_number %}
+    <div style="font-size: 200px;text-shadow: 5px 5px #999;padding: 55px 150px 0 0px;text-align: right;">500</div>
+{% endblock%}
+
+
+{% block error_message %}
+    <h2>{% trans "Server error - 500" %}</h2>
+    <h5>{% trans "Oops... There was an error. Our stuff is working on it! Please, come back later." %}</h5>
+{% endblock%}
+
+{% block info_text %}
+    <p>{% trans "Sorry, something funky happened on the server. Please use the navigational links to get out of here or come back later..." %}</p>
+{% endblock %}

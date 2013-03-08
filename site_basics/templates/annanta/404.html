@@ -1,0 +1,166 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{% block head_title %}404 - {{ site.name }}{% endblock%}</title>
+
+        {% block style %}
+		<style type="text/css">@import url("{{ theme_static_url }}css/stylesheet.css");</style>
+		<link href="{{ theme_static_url }}css/{{ theme_color }}.css" rel="stylesheet" type="text/css" />
+        {% endblock%}
+
+        {% block extra_head %}{% endblock%}
+	</head>
+<body>
+    {% block body %}
+	<!-- Warp around everything -->
+	<div id="warp">
+        {% block wrapper %}
+
+		<!-- Header top -->
+		<div id="header_top">{% block header_top %}{% endblock %}</div>
+		<!-- End header top -->
+		
+		
+		<!-- Header -->
+		<div id="header">
+            {% block header %}
+                {% block error_message %}
+                    <h2>{% trans "Oops, page not found" %}</h2>
+                    <h5>{% trans "Somebody really liked this page, or maybe your mis-typed the URL." %}</h5>
+                {% endblock%}
+            {% endblock%}
+		</div>
+		<!-- End Header -->
+
+		<!-- The content div -->
+		<div id="content">
+            {% block content %}
+			<!-- text -->
+			<div id="text">
+				<!-- The info text -->
+                {% block info_text %}
+				    <p>{% trans "Sorry, Evidently the document you were looking for has either been moved or no longer exists. Please use the navigational links to the right to locate additional resources and information." %}</p>
+                {% endblock %}
+                <br />
+				<h3>{% trans "Lost? We suggest..." %}</h3>
+				<!-- End info text -->
+				
+				{% if nav_links %}
+                    <!-- Page links -->
+                    <ul>
+                        {% for link in nav_links %}
+                            <li><a href="{{ link.0 }}" title="{{ link.1 }}">&raquo; {{ link.1 }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <!-- End page links -->
+                {% endif %}
+			</div>
+			<!-- End info text -->
+		
+		
+			<!-- Book icon -->
+            {% block error_number %}
+			    <img id="book" src="{{ theme_static_url }}images/img-01.png" alt="Book iCon" />
+            {% endblock%}
+			<!-- End Book icon -->
+			
+			<div style="clear:both;"></div>
+            {% endblock%}
+		</div>
+		<!-- End Content -->
+
+		<!-- Footer -->
+		<div id="footer">
+            {% block footer %}
+
+            {% block footer_logo %}
+                {% if logo_url %}
+                    <div style="max-width: 130px; overflow: hidden; float: left;" id="twitter">
+                        <img src="{{ logo_url }}" alt="{{ site.name }}" />
+                    </div>
+                {% endif %}
+                <p id="twitter_text" style="padding-left: 20px;">
+                    &copy; {{ year }} {{ site.name }}. {% trans "All rights reserved" %}
+                </p>
+            {% endblock %}
+			<!---->
+			<!--&lt;!&ndash; Twitter &ndash;&gt;-->
+			<!--<img src="{{ theme_static_url }}images/twitter.png" alt="twitter" id="twitter" />-->
+			<!---->
+			<!--<p id="twitter_text">-->
+			<!--<a href="#">@annanta</a> -->
+			<!---->
+			<!--&lt;!&ndash; Get tweet &ndash;&gt;-->
+			<!--Under Construction Template <a href="http://ow.ly/16GJZa">http://ow.ly/16GJZa</a>			-->
+			<!--&lt;!&ndash; End get tweet &ndash;&gt;-->
+			<!--</p>-->
+	    <!--&lt;!&ndash; End Twitter &ndash;&gt;-->
+			
+			{% if search_action %}
+                <!-- Search Form -->
+                <form action="{{ search_action }}" method="{{ search_method }}">
+                <p id="searchform">
+                    <input type="submit" name="submit" id="submit" value="{% trans 'Search' %}" />
+                    <input type="text" name="{{ search_param }}" id="search" />
+                </p>
+                </form>
+                <!-- End Search form -->
+            {% endif %}
+			
+			<div style="clear:both;"></div>
+            {% endblock%}
+		</div>
+		<!-- End Footer -->
+		
+		
+		<!-- Footer bottom -->
+		<div id="footer_bottom">{% block footer_bottom %}{% endblock %}</div>
+		<!-- End Footer bottom -->
+
+
+        {% block social %}
+            {% if social_links %}
+            <!-- Social Media list -->
+            <ul id="socialmedia">
+                {% for link in social_links %}
+                    <li>
+                        <a href="{{ link.1 }}"><img src="{{ STATIC_URL }}site_basics/gosocial/32/{{ link.0 }}.png" alt="{{ link.0 }}" /></a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <!-- End Social media -->
+            {% endif %}
+        {% endblock %}
+		
+		
+		<div style="clear:both;"></div>
+
+        {% endblock%}
+	</div>
+	<!-- End Warp around everything -->
+
+
+    {% block scripts %}
+    <!-- Import google jquery -->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+    <script type="text/javascript">
+        google.load("jquery", "1.3.1");
+    </script>
+
+    <!-- PNGFix for IE6 -->
+    <script type="text/javascript" src="{{ theme_static_url }}js/jquery.pngFix.js"></script>
+
+    <!-- Active pngfix -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).pngFix();
+        });
+    </script>
+    {% endblock%}
+
+{% endblock%}
+</body>
+</html>
