@@ -1,7 +1,7 @@
 django-site-basics
 ========================
 
-A reusable app to add favicon.ico, robots.txt and 404/500 error pages handling for your site.
+A reusable app to add favicon.ico, robots.txt, SEO tricks and 404/500 error pages handling for your site.
 
 Installation
 ------------------------------------
@@ -27,6 +27,15 @@ Add site_basics URL patterns and handlers (if you want to  use them) to urls.py:
           url(r'^', include('site_basics.urls')),
       )
 
+Replace Django's LocaleMiddleware with UpdatedLocaleMiddleware in your MIDDLEWARE_CLASSES::
+
+    MIDDLEWARE_CLASSES = (
+        ...
+        #'django.middleware.locale.LocaleMiddleware', # disabled in favor of UpdatedLocaleMiddleware
+        'site_basics.middleware.UpdatedLocaleMiddleware',
+        ...
+    )
+
 Usage
 ------------------------------------
 
@@ -46,6 +55,24 @@ robots.txt will be working out-of-the-box but if you need to customize it put cu
 If you need to change template location use ROBOTS_TEMPLATE setting (robots.txt by default). Example::
 
     ROBOTS_TEMPLATE = 'myfolder/robots.txt'
+
+UpdatedLocaleMiddleware
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is a fix of Django i18n_urlpatterns and SEO problem described in `Yawd's article`_.
+
+.. _Yawd's article: http://blog.yawd.eu/2012/impact-django-page-redirects-seo/
+
+It changes LocaleMiddleware i18n redirects from Temporary (302) to Permanent (301) which prevents search engines from indexing and ranking double links for the same page.
+
+To activate it replace Django's LocaleMiddleware with UpdatedLocaleMiddleware in your MIDDLEWARE_CLASSES::
+
+    MIDDLEWARE_CLASSES = (
+        ...
+        #'django.middleware.locale.LocaleMiddleware', # disabled in favor of UpdatedLocaleMiddleware
+        'site_basics.middleware.UpdatedLocaleMiddleware',
+        ...
+    )
 
 Error pages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
