@@ -232,6 +232,7 @@ Credits
 * Uses Robotik_ 404 error page template
 * Uses Annanta_ 404 error page template
 * Uses GoSocial_ icons pack
+* `Yawd's middleware code`_
 
 .. _Evgeny Demchenko: https://github.com/littlepea
 .. _django-favicon: https://github.com/littlepea/django-favicon
@@ -239,3 +240,4 @@ Credits
 .. _Annanta: http://www.designersdigest.co/archive/404-error-template/
 .. _Robotik: http://mogoolab.com/portfolio/free-404-error-page-html-template/
 .. _GoSocial: https://www.gosquared.com/blog/gosocial-a-free-social-media-icon-pack
+.. _Yawd's middleware code: http://blog.yawd.eu/2012/impact-django-page-redirects-seo/
