@@ -36,6 +36,7 @@ setup(
         "Django<1.5",
         "django-favicon",
         "django-robots-txt",
+        "django-sitemetrics",
     ],
     long_description=read_file('README.rst'),
     test_suite="runtests.runtests",

@@ -10,10 +10,11 @@ Install "django-site-basics" using pip or easy_install::
 
     pip install django-site-basics
 
-Add "favicon" to your INSTALLED_APPS in settings.py::
+Add "site_basics" and optionally "sitemetrics" to your INSTALLED_APPS in settings.py::
 
       INSTALLED_APPS = (
           ...
+          'sitemetrics', # (optional) for Google Analytics support
           'site_basics',
       )
 
@@ -107,6 +108,31 @@ And if you're using Django CMS you can show links to your root pages by setting:
     ERROR_PAGE_CMS_LINKS = True
 
 More configuration options below...
+
+Google Analytics (sitemetrics)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Add 'sitemetrics' to 'INSTALLED_APPS' in your settings file (usually 'settings.py')
+2. Add '{% load sitemetrics %}' tag to the top of a template (usually base template, e.g. 'base.html')
+
+Then you have two options that add metrics client code to your page:
+
+* Use so-called 'four arguments' sitemetrics tag notation::
+
+    {% sitemetrics by google for "UA-000000-0" %}
+
+Here: 'google' — provider alias; 'UA-000000-0' — keycode argument. That's how you put Google Analytics client code (with 'UA-000000-0' keycode) into page.
+
+* Use so-called 'no arguments' sitemetrics tag notation::
+
+    {% sitemetrics %}
+
+That's how you put all client codes registered and active for the current site.
+
+Client codes are registered with sites through Django Admin site interface.
+'Admin site' and 'Sites' from Django contrib are required for this option to work.
+
+'./manage.py syncdb' is required just once for this option to work (it installs sitemetrics table into database).
 
 Configuration
 ------------------------------------
@@ -220,7 +246,6 @@ TODO
 
 * Add more templates
 * Add locales and translations
-* Google Analytics
 * Sitemaps support
 
 Credits
@@ -229,6 +254,7 @@ Credits
 * Developed and maintained under supervision of `Evgeny Demchenko`_
 * Uses django-favicon_ for favicon.ico handling
 * Uses django-robots-txt_ for robots.txt handling
+* Uses django-sitemetrics_ for Google Analytics handling
 * Uses Robotik_ 404 error page template
 * Uses Annanta_ 404 error page template
 * Uses GoSocial_ icons pack
@@ -237,6 +263,7 @@ Credits
 .. _Evgeny Demchenko: https://github.com/littlepea
 .. _django-favicon: https://github.com/littlepea/django-favicon
 .. _django-robots-txt: https://github.com/nkuttler/django-robots-txt
+.. _django-sitemetrics: https://github.com/idlesign/django-sitemetrics
 .. _Annanta: http://www.designersdigest.co/archive/404-error-template/
 .. _Robotik: http://mogoolab.com/portfolio/free-404-error-page-html-template/
 .. _GoSocial: https://www.gosquared.com/blog/gosocial-a-free-social-media-icon-pack
