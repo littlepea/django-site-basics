@@ -38,7 +38,7 @@ def _get_content(request):
                         page.get_absolute_url(),
                         page.get_menu_title(),
                         ])
-            except AttributeError: # if no user in request
+            except AttributeError:  # if no user in request
                 for page in Page.objects.on_site(site).public():
                     if page.is_root_node():
                         nav_links.append([
@@ -46,7 +46,7 @@ def _get_content(request):
                             page.get_title(),
                         ])
         except ImportError:
-            pass # django-cms is not installed
+            pass  # django-cms is not installed
 
     if len(nav_links) == 0:
         nav_links = conf.ERROR_PAGE_NAV_LINKS
