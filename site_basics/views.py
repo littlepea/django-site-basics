@@ -2,7 +2,7 @@ import conf
 import datetime
 
 from django.shortcuts import render_to_response
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.template import RequestContext
 
 
