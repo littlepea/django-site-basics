@@ -48,7 +48,7 @@ def _get_content(request):
         except ImportError:
             pass  # django-cms is not installed
 
-    if len(nav_links) == 0:
+    if not nav_links:
         nav_links = conf.ERROR_PAGE_NAV_LINKS
     return RequestContext(request, {
         'site': site,
